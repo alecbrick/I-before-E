@@ -1,4 +1,4 @@
 I-before-E
 ==========
 
-I before E. Always.
+Except after C, of course.
