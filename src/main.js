@@ -27,13 +27,21 @@ function walk(node) {
 function handleText(textNode) {
     var text = textNode.nodeValue;
     
-    // Replace ei with ie
-    text = text.replace(/(E|e)(I|i)/g, function(match, p1, p2, offset, string) {
-        i = String.fromCharCode(p1.charCodeAt(0) + 4);
-        e = String.fromCharCode(p2.charCodeAt(0) - 4);
+    var found = false;
 
-        return i + e;
+    // In the case of eei, we need to check again
+    while(!found) {
+        found = true;
+        // Replace ei with ie
+        text = text.replace(/(E|e)(I|i)/g, 
+                                function(match, p1, p2, offset, string) {
+            i = String.fromCharCode(p1.charCodeAt(0) + 4);
+            e = String.fromCharCode(p2.charCodeAt(0) - 4);
+
+            found = false;
+            return i + e;
         });
+    }
 
     // "cei" is now "cie", so fix that
     text = text.replace(/(C|c)(I|i)(E|e)/g,
